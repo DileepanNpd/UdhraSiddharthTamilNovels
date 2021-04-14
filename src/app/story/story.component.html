@@ -1,42 +1,14 @@
 <div oncontextmenu="return false;" *ngIf="show">
     <div class="container">
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- Display ad 1 -->
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1964144255874029"
-            data-ad-slot="7651701021" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- Display Ads 2 -->
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1964144255874029"
-            data-ad-slot="6995629868" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-        <div class="row">
+        <!-- <div class="row">
 
             <div class="col-1"></div>
             <div class="col-10">
                 <img src="{{viewStory.story.image}}" class="pt-10 pb-10">
             </div>
             <div class="col-1"></div>
-        </div>
+        </div> -->
     </div>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- Display ad 1 -->
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1964144255874029" data-ad-slot="7651701021"
-        data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- Display Ads 2 -->
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1964144255874029" data-ad-slot="6995629868"
-        data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
     <div class="main-section">
         <div class="w-container">
             <div class="section-heading">
@@ -64,56 +36,62 @@
                         </ngb-rating>
                     </a>
                 </div>
-                <div class="full-divide"></div>
-                <div class="section-heading">
-                    <h2>Episodes</h2>
+                <div *ngIf=paginationShow>
+                    <div class="full-divide"></div>
+                    <div class="section-heading">
+                        <h2>Episodes</h2>
+                    </div>
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{ disabled: pager.currentPage === 1 }" class="page-item first-item">
+                            <a (click)="setPage(1)" class="page-link">First</a>
+                        </li>
+                        <li [ngClass]="{ disabled: pager.currentPage === 1 }" class="page-item previous-item">
+                            <a (click)="setPage(pager.currentPage - 1)" class="page-link">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{ active: pager.currentPage === page }"
+                            class="page-item number-item">
+                            <a (click)="setPage(page)" class="page-link">{{ page }}</a>
+                        </li>
+                        <li [ngClass]="{ disabled: pager.currentPage === pager.totalPages }"
+                            class="page-item next-item">
+                            <a (click)="setPage(pager.currentPage + 1)" class="page-link">Next</a>
+                        </li>
+                        <li [ngClass]="{ disabled: pager.currentPage === pager.totalPages }"
+                            class="page-item last-item">
+                            <a (click)="setPage(pager.totalPages)" class="page-link">Last</a>
+                        </li>
+                    </ul>
+                    <div class="med-divide"></div>
                 </div>
-                <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-                    <li [ngClass]="{ disabled: pager.currentPage === 1 }" class="page-item first-item">
-                        <a (click)="setPage(1)" class="page-link">First</a>
-                    </li>
-                    <li [ngClass]="{ disabled: pager.currentPage === 1 }" class="page-item previous-item">
-                        <a (click)="setPage(pager.currentPage - 1)" class="page-link">Previous</a>
-                    </li>
-                    <li *ngFor="let page of pager.pages" [ngClass]="{ active: pager.currentPage === page }"
-                        class="page-item number-item">
-                        <a (click)="setPage(page)" class="page-link">{{ page }}</a>
-                    </li>
-                    <li [ngClass]="{ disabled: pager.currentPage === pager.totalPages }" class="page-item next-item">
-                        <a (click)="setPage(pager.currentPage + 1)" class="page-link">Next</a>
-                    </li>
-                    <li [ngClass]="{ disabled: pager.currentPage === pager.totalPages }" class="page-item last-item">
-                        <a (click)="setPage(pager.totalPages)" class="page-link">Last</a>
-                    </li>
-                </ul>
-                <div class="med-divide"></div>
             </div>
         </div>
     </div>
     <div class="container selectable no-print" [innerHTML]="sanitizer.bypassSecurityTrustHtml(storyDescription)">
     </div>
-    <div class="full-divide"></div>
-    <div class="section-heading">
-        <h2>Episodes</h2>
+    <div *ngIf=paginationShow>
+        <div class="full-divide"></div>
+        <div class="section-heading">
+            <h2>Episodes</h2>
+        </div>
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li [ngClass]="{ disabled: pager.currentPage === 1 }" class="page-item first-item">
+                <a (click)="setPageBottom(1)" class="page-link">First</a>
+            </li>
+            <li [ngClass]="{ disabled: pager.currentPage === 1 }" class="page-item previous-item">
+                <a (click)="setPageBottom(pager.currentPage - 1)" class="page-link">Previous</a>
+            </li>
+            <li *ngFor="let page of pager.pages" [ngClass]="{ active: pager.currentPage === page }"
+                class="page-item number-item">
+                <a (click)="setPageBottom(page)" class="page-link">{{ page }}</a>
+            </li>
+            <li [ngClass]="{ disabled: pager.currentPage === pager.totalPages }" class="page-item next-item">
+                <a (click)="setPageBottom(pager.currentPage + 1)" class="page-link">Next</a>
+            </li>
+            <li [ngClass]="{ disabled: pager.currentPage === pager.totalPages }" class="page-item last-item">
+                <a (click)="setPageBottom(pager.totalPages)" class="page-link">Last</a>
+            </li>
+        </ul>
     </div>
-    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-        <li [ngClass]="{ disabled: pager.currentPage === 1 }" class="page-item first-item">
-            <a (click)="setPageBottom(1)" class="page-link">First</a>
-        </li>
-        <li [ngClass]="{ disabled: pager.currentPage === 1 }" class="page-item previous-item">
-            <a (click)="setPageBottom(pager.currentPage - 1)" class="page-link">Previous</a>
-        </li>
-        <li *ngFor="let page of pager.pages" [ngClass]="{ active: pager.currentPage === page }"
-            class="page-item number-item">
-            <a (click)="setPageBottom(page)" class="page-link">{{ page }}</a>
-        </li>
-        <li [ngClass]="{ disabled: pager.currentPage === pager.totalPages }" class="page-item next-item">
-            <a (click)="setPageBottom(pager.currentPage + 1)" class="page-link">Next</a>
-        </li>
-        <li [ngClass]="{ disabled: pager.currentPage === pager.totalPages }" class="page-item last-item">
-            <a (click)="setPageBottom(pager.totalPages)" class="page-link">Last</a>
-        </li>
-    </ul>
     <div class="main-section">
         <div class="w-container">
             <div class="section-heading">
@@ -133,20 +111,6 @@
             </div>
         </div>
         <app-comment-box></app-comment-box>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- Display Ads 2 -->
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1964144255874029"
-            data-ad-slot="6995629868" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- Display ad 1 -->
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1964144255874029"
-            data-ad-slot="7651701021" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
         <div class="" *ngIf="showRelatedStories">
             <div class="w-container">
                 <div class="section-heading">
@@ -188,20 +152,6 @@
         </div>
     </div>
 </div>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Display Ads 2 -->
-<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1964144255874029" data-ad-slot="6995629868"
-    data-ad-format="auto" data-full-width-responsive="true"></ins>
-<script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Display ad 1 -->
-<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1964144255874029" data-ad-slot="7651701021"
-    data-ad-format="auto" data-full-width-responsive="true"></ins>
-<script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 <div class="container-dileepan" *ngIf="!show">
     <div class="vertical-center">
         <mat-spinner></mat-spinner>

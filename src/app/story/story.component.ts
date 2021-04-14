@@ -20,6 +20,7 @@ export class StoryComponent implements OnInit, OnChanges {
   storyDescription: string = '';
   viewStory!: ViewStory;
   showRelatedStories: boolean = false;
+  paginationShow: boolean = false;
   login: boolean = false;
   like: boolean = false;
   dislike: boolean = false;
@@ -75,6 +76,9 @@ export class StoryComponent implements OnInit, OnChanges {
           this.items = this.viewStory.story.episode;
           if (this.items && this.items.length) {
             this.setPage(this.initialPage);
+          }
+          if(this.items.length == 1) {
+            this.paginationShow = false;
           }
           if (episode != undefined && episode != '') {
             this.initialPage = Number(episode);
